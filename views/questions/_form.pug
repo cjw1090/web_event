@@ -1,0 +1,61 @@
+.form-group
+  label(for="title") Title
+  input.form-control(type="text", name="title", placeholder="TITLE", value=question.title)
+
+.form-group
+  label Category
+  select(name="Category", size="1")
+    option(value="Community") Community
+    option(value="Business") Business
+    option(value="Secience & Tech") Secience &amp; Tech
+    option(value="Other") Other
+    option(value="Arts") Arts
+    option(value="Health") Health
+    option(value="Food & Drink") Food &amp; Drink
+    option(value="Government") Gevernment
+    option(value="Holiday") Holiday
+    option(value="School Activities") School Activities
+    
+
+  label Event Type
+  select(name="type", size="1")
+    option(value="Expo") Expo
+    option(value="Seminar") Seminar
+    option(value="Class") Class
+    option(value="Festival") Festival
+    option(value="Conference") Conference
+    option(value="Netwoking") Networking
+    option(value="Party") Party
+    option(value="Other") Other
+    option(value="Performance") Performance
+    option(value="Screening") Screening
+    option(value="Gala") Gala
+    
+.form-group 
+label Ticket Prices
+  input(type="radio", name="ticket", value="free", checked="")
+  |	free&nbsp;
+  input(type="radio", name="ticket", value="paid")
+  |	paid
+  input.form-control(type="text", placeholder="price", id="ticketPrice", name="ticketPrice")
+.form-group
+  label(for="location") location
+  input.form-control(type="text", name="location", value=question.location)
+.form-group
+  label(for="startT") Start Time
+  input.form-control(type="datetime-local", name="startT", value=question.startT)
+.from-group
+  label(for="finishT") Finish Time
+  input.form-control(type="datetime-local", name="finishT", value=question.finishT)
+.form-group
+  label(for="event") Description
+  textarea.form-control(name="content", placeholder="event description", rows="5")= question.content
+.form-group
+  label(for="Organizer") Organizer Name
+  input.form-control(type="text", placeholder="Organizer name", name="OrganizerName", value=question.OrganizerName)
+.form-group
+  label(for="Organizer") Organizer Description
+  textarea.form-control(name="Organizer", placeholder="Organizer description", rows="5")= question.content2
+.form-group
+  label(for="tags") Tags
+  input.form-control(type="text", name="tags", placeholder="tags separated by spaces", value=question.tags ? question.tags.join(" ") : "")

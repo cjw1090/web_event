@@ -1,0 +1,26 @@
+.location= question.location
+if question.ticket != "free"
+  |
+  .ticketPrice= question.ticketPrice
+if question.ticket == "free"
+  |
+  string 무료
+  br
+.startT=  question.startT
+.finishT= question.finishT
+.tags.badges
+  each tag in question.tags
+    span.badge.badge-phill.badge-secondary= tag
+    | 
+.row
+  .col-sm
+    .numbers.
+      #[span.number.num-btn= question.numLikes] joins,
+      #[span.number.num-answers= question.numAnswers] questions,
+      #[span.number.num-views= question.numReads] reads
+  .col-sm
+    .author
+      | asked on #{moment(question.createdAt).format('YYYY-MM-DD')}
+      if question.author
+        | 
+        | by #[a(href=`/users/${question.author.id}`)= question.author.name] 

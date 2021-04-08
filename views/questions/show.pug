@@ -1,0 +1,71 @@
+extends ../layout
+
+block content
+  //여기에 나중에 버튼 설정해서 카테고리별,.. 설정
+  .container
+    h1.main-title= question.title
+    strong Category :
+    .question.show
+      .Category= question.Category
+      strong Event Type : 
+      .Type= question.Type
+      strong 상세설명 :
+      .content= question.content
+      strong 조직이름 :
+      .OrganizerName= question.OrganizerName
+      strong 조직설명 :
+      .Organizer= question.Organizer
+      //include _question
+      strong 장소 :
+      .location= question.location
+      if question.ticket != "free"
+        |
+        strong 티켓가격 :
+        .ticketPrice= question.ticketPrice
+      if question.ticket == "free"
+        |
+        strong 티켓가격 : 
+        string 무료
+        br
+      strong 시작시간 :
+      .startT=  question.startT
+      strong 종료시간 :
+      .finishT= question.finishT
+      .row
+        .col-sm
+          .numbers.
+            #[span.number.num-likes= question.numLikes] joins,
+            #[span.number.num-answers= question.numAnswers] questions,
+            #[span.number.num-views= question.numReads] reads
+
+
+          .buttons
+              if currentUser && question.author.id == currentUser.id 
+                if currentUser.email == "admin@gmail.com" 
+                  |  
+                  a.btn.btn-outline-secondary(href=`/questions/${question.id}/edit`) Edit
+                  | 
+                  a.btn.btn-outline-danger.need-confirm-btn(href=`/questions/${question.id}?_method=delete`) Delete
+                else
+                  |  
+                  a.btn.btn-outline-secondary(href=`/questions/${question.id}/edit`) Edit
+                  | 
+                  a.btn.btn-outline-danger.need-confirm-btn(href=`/questions/${question.id}?_method=delete`) Delete
+              else if currentUser
+                |
+                button.btn.btn-primary #[i.fa.fa-thumbs-up] 참여신청
+      
+    if question.numAnswers > 0
+      hr
+      h3 #{question.numAnswers} question(s)
+      .answers.show
+        each answer in answers
+          include _answer
+
+    form(action=`/questions/${question.id}/answers`, method='POST')
+      .form-group
+        label(for='answer') Review
+        textarea.form-control(name="content", rows="5")
+      button.btn.btn-primary(type="submit") POST
+      
+    script(src='/javascripts/event_client.js')
